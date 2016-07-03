@@ -1,0 +1,17 @@
+ribeiro\exception\GameIsOverException.class
+ribeiro\Action.class
+ribeiro\auxiliary\Utilities.class
+ribeiro\exception\PositionOccupiedException.class
+ribeiro\exception\TicTacToeException.class
+ribeiro\State.class
+ribeiro\exception\InvalidPieceException.class
+ribeiro\Board.class
+ribeiro\ArtificialIntelligence.class
+ribeiro\exception\InvalidPositionException.class
+ribeiro\exception\WrongPlayerTurnException.class
+ribeiro\TicTacToe.class
+ribeiro\exception\InvalidCoordinatesException.class
+ribeiro\Main.class
+ribeiro\exception\GameIsNotOverException.class
+ribeiro\Human.class
+ribeiro\Player.class
