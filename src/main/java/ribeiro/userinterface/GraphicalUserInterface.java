@@ -20,8 +20,8 @@ public class GraphicalUserInterface extends UserInterface implements ActionListe
 	private JTextArea _gameDisplay;
 	private JTextField _inputArea;
 	
-	public GraphicalUserInterface(Human human) {
-		super(human);
+	public GraphicalUserInterface(Human playerO, Human playerX) {
+		super(playerO, playerX);
 		initGraphics();
 	}
 
@@ -48,17 +48,6 @@ public class GraphicalUserInterface extends UserInterface implements ActionListe
 	}
 
 	@Override
-	public void open() {
-		// TODO Auto-generated method stub
-
-	}
-
-	@Override
-	public void close() {
-		// TODO Auto-generated method stub
-	}
-
-	@Override
 	public void display(String text) {
 		SwingUtilities.invokeLater(
 				new Runnable(){
@@ -77,7 +66,19 @@ public class GraphicalUserInterface extends UserInterface implements ActionListe
 	@Override
 	public void actionPerformed(ActionEvent event) {
 		//Code Ran When User Presses Enter
-		_human.userInterfaceCallback(event.getActionCommand());
+		_inputArea.setText("");
+		getCurrentHuman().userInterfaceCallback(event.getActionCommand());
+	}
+
+	@Override
+	public void open() {
+		// TODO Auto-generated method stub
+		
+	}
+
+	@Override
+	public void close() {
+		// TODO Auto-generated method stub
 		
 	}
 

@@ -14,12 +14,6 @@ public class Action{
 		setPosition(position);
 	}
 
-	@Deprecated
-	private Action(char piece, int line, int collumn) throws InvalidPieceException, InvalidCoordinatesException {
-		setPiece(piece);
-		setCoordinates(line, collumn);
-	}
-
 	/* ###################
 	#  Public Interface  #
 	################### */
@@ -30,21 +24,6 @@ public class Action{
 
 	public int getPosition(){
 		return _position;
-	}
-
-	public int[] getCoordinates(){
-		int[] coordinates = new int[2];
-		coordinates[0] = _line;
-		coordinates[1] = _collumn;
-		return coordinates;
-	}
-
-	public int getLine(){
-		return _line;
-	}
-
-	public int getCollumn(){
-		return _collumn;
 	}
 
 	@Override
@@ -73,22 +52,10 @@ public class Action{
 		if(!Utilities.validPosition(position)){
 			throw new InvalidPositionException(position);
 		}
-
-		int[] coordinates = Utilities.vectorToMatrix(position);
-		_line = coordinates[0];
-		_collumn = coordinates[1];
 		_position = position;
 		
 	}
 
-	private void setCoordinates(int line, int collumn) throws InvalidCoordinatesException{
-		if(!Utilities.validCoordinates(line, collumn)){
-			throw new InvalidCoordinatesException(line, collumn);
-		}
-		_position = Utilities.matrixToVector(line, collumn);
-		_line = line;
-		_collumn = collumn;
-	}
 
 	/* ############
 	#  Auxiliary  #

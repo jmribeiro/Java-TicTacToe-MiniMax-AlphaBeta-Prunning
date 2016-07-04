@@ -1,6 +1,5 @@
 package ribeiro;
 
-import ribeiro.auxiliary.*;
 import ribeiro.exception.*;
 
 public class ArtificialIntelligence extends Player{

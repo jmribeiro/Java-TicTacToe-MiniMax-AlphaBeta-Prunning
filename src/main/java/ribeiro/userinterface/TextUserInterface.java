@@ -10,8 +10,8 @@ public class TextUserInterface extends UserInterface implements Runnable {
 	
 	private BufferedReader _reader = new BufferedReader(new InputStreamReader(System.in));
 	
-	public TextUserInterface(Human human) {
-		super(human);
+	public TextUserInterface(Human playerO, Human playerX) {
+		super(playerO, playerX);
 	}
 	
 	public void open(){
@@ -24,13 +24,13 @@ public class TextUserInterface extends UserInterface implements Runnable {
 	public void run() {
 		while(_open){
 			try {
-				_human.userInterfaceCallback(_reader.readLine());
+				getCurrentHuman().userInterfaceCallback(_reader.readLine());
 			} catch (IOException e) {
 				displayLine(e.getMessage());
 			}
 		}
 	}
-	
+
 	public void close(){
 		_open = false;
 	}

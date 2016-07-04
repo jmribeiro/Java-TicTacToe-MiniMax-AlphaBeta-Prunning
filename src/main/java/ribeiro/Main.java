@@ -1,7 +1,7 @@
 package ribeiro;
 
-import ribeiro.auxiliary.*;
 import ribeiro.exception.*;
+import ribeiro.userinterface.UserInterfaceType;
 
 import java.io.*;
 
@@ -31,7 +31,7 @@ public class Main {
 				|| input.equals("YES")
 			){
 				// Replay
-				ttt.reset();
+				ttt.reset(UserInterfaceType.TUI);
 				ttt.play();
 				validRead = true;
 			}else if(input.equals("N") || input.equals("n") 

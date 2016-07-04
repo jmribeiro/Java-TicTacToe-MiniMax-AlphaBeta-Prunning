@@ -18,13 +18,13 @@ public class Human extends Player{
 	private volatile boolean _hasPlayed;
 	
 	public Human(char piece) throws InvalidPieceException{
-		
 		super(piece);
-		
-		_userInterface = new GraphicalUserInterface(this);
-		
 	}
 
+	public void setUserInterface(UserInterface userInterface) {
+		_userInterface = userInterface;
+	}
+	
 	/* ###################
 	#  Public Interface  #
 	################### */
@@ -33,24 +33,20 @@ public class Human extends Player{
 	public void play(State state) {
 		
 		_currentGameState = state;
+		_state = new Playing(this);
 		
 		_userInterface.open();
 		
 		_userInterface.display(state.toString());
-		_userInterface.display("Which Position Do You Wish To Play? - ");
+		_userInterface.displayLine("Which Position Do You Wish To Play?");
 		
 		_hasPlayed = false;
-		
-		_state = new Playing(this);
-		
 		
 		while(!_hasPlayed){
 			
 		}
 		
-		_userInterface.display(state.toString());
-		_userInterface.display("Waiting Opponent's Turn");
-		
+		_userInterface.nextPlayer();
 		
 	}
 	
@@ -73,11 +69,14 @@ public class Human extends Player{
 	public void userInterfaceCallback(String input){
 		//Code That UI Runs Goes Here
 		try{
+			
 			_state.handleInput(input);
 		}catch(NumberFormatException e){
 			_userInterface.displayLine("Please Type A Number Between 1 and 9");
 		}catch(TicTacToeException e){
 			_userInterface.displayLine(e.getMessage());
+		}catch(NullPointerException e){
+			e.printStackTrace();
 		}
 		
 	}
@@ -87,5 +86,7 @@ public class Human extends Player{
 		_userInterface.close();
 		_state = new WaitingTurn(this);
 	}
+
+
 
 }

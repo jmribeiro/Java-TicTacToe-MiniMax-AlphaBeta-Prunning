@@ -1,22 +1,23 @@
 package ribeiro;
 
-import ribeiro.auxiliary.*;
 import ribeiro.exception.*;
+import ribeiro.userinterface.*;
 
 public class TicTacToe{
 
-	Player playerO, playerX;
+	Player _playerO, _playerX;
 	State game;
-
+	UserInterface _userInterface;
+	
 	public TicTacToe() {
-		reset();
+		reset(UserInterfaceType.GUI);
 	}
 
 	public void play() throws TicTacToeException{
 		while(!game.gameOver()){
 			//Le accao jogador 1
 			
-			playerO.play(game);
+			_playerO.play(game);
 
 			//Verifica Game Over
 			if(game.gameOver()){
@@ -25,7 +26,7 @@ public class TicTacToe{
 			}
 
 			//Jogador 2
-			playerX.play(game);
+			_playerX.play(game);
 
 			//Verifica Game Over
 			if(game.gameOver()){
@@ -48,16 +49,40 @@ public class TicTacToe{
 
 	}
 
-	public void reset(){
+	public void reset(UserInterfaceType type){
+		
 		Board board = new Board();
 		char firstPlayer = 'O';
 
 		game = new State(board, firstPlayer);
 		try{
-			playerO = new Human('O');
-			playerX = new Human('X');
+			_playerO = new Human('O');
+			_playerX = new Human('X');
+			
+			loadUserInterface(type);
+			
 		}catch(InvalidPieceException e){
 			//Make Sure It Doesnt Happen...
 		}
+	}
+	
+	private void loadUserInterface(UserInterfaceType type){
+		switch(type){
+			case GRAPHICAL:
+			case GRAPHICALUSERINTERFACE:
+			case GUI:
+				_userInterface = new GraphicalUserInterface((Human)_playerO, (Human)_playerX);
+				break;
+			case TEXT:
+			case TEXTUSERINTERFACE:
+			case TUI:
+				_userInterface = new TextUserInterface((Human)_playerO, (Human)_playerX);
+				break;
+		default:
+			_userInterface = new GraphicalUserInterface((Human)_playerO, (Human)_playerX);
+			break;
+			
+		}
+		
 	}
 }
