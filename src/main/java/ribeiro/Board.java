@@ -25,6 +25,31 @@ public class Board {
 		}
 	}
 
+	@Override
+	public String toString(){
+		String boardString = "\n|----------------|\n";
+
+		for(int i = 0; i<3; i++){
+			boardString+="|";
+			for(int j = 0; j<3; j++){
+				boardString+= "  " + _matrix[i][j] + "  |";
+			}
+			boardString+= "\n|----------------|\n";
+		}
+		return boardString;
+	}
+	
+	public char[] getBoardArray(){
+		char[] vectorBoard = new char[9];
+		int i = 0;
+		for(int line = 0; line < 3; line++){
+			for(int collumn = 0; collumn < 3; collumn++){
+				vectorBoard[i++] = _matrix[line][collumn];
+			}
+		}
+		return vectorBoard;
+	}
+	
 	public boolean isFinal(){
 		
 		if(hasWinner()){
@@ -149,19 +174,6 @@ public class Board {
 		}
 	}
 
-	@Override
-	public String toString(){
-		String boardString = "\n|-----------|\n";
-
-		for(int i = 0; i<3; i++){
-			boardString+="|";
-			for(int j = 0; j<3; j++){
-				boardString+= " " + _matrix[i][j] + " |";
-			}
-			boardString+= "\n|-----------|\n";
-		}
-		return boardString;
-	}
 
 	private void fillPosition(int position, char piece) throws InvalidPositionException, InvalidCoordinatesException, InvalidPieceException, PositionOccupiedException{
 		

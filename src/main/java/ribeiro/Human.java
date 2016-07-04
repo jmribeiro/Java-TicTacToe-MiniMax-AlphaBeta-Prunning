@@ -1,83 +1,91 @@
 package ribeiro;
 
-import ribeiro.auxiliary.*;
 import ribeiro.exception.*;
-
-import java.io.*;
+import ribeiro.state.HumanState;
+import ribeiro.state.Playing;
+import ribeiro.state.WaitingTurn;
+import ribeiro.userinterface.*;
+import ribeiro.userinterface.UserInterface;
 
 public class Human extends Player{
 	
-	BufferedReader _reader = new BufferedReader(new InputStreamReader(System.in));
+	
+	private UserInterface _userInterface;
+	private HumanState _state;
+	
+	private State _currentGameState;
+	
+	private volatile boolean _hasPlayed;
 	
 	public Human(char piece) throws InvalidPieceException{
+		
 		super(piece);
+		
+		_userInterface = new GraphicalUserInterface(this);
+		
 	}
 
 	/* ###################
 	#  Public Interface  #
 	################### */
 	
-	public Action getNextAction(State state){
-
-		displayGame(state);
-
-		boolean validAction = false;
+	@Override
+	public void play(State state) {
 		
-		Action action = null; 
+		_currentGameState = state;
 		
-		while(!validAction){
-
-			try{
-				action = new Action(getPiece(), readPosition());
-			}catch(InvalidPositionException | InvalidPieceException e){
-				System.out.println(e.getMessage());
-				continue;
-			}
+		_userInterface.open();
+		
+		_userInterface.display(state.toString());
+		_userInterface.display("Which Position Do You Wish To Play? - ");
+		
+		_hasPlayed = false;
+		
+		_state = new Playing(this);
+		
+		
+		while(!_hasPlayed){
 			
-			if(!state.possibleActions().contains(action)){
-				System.out.println("That Position Is Already Occupied!");
-				continue;
-			}
-			validAction=true;
 		}
 		
-		return action;
+		_userInterface.display(state.toString());
+		_userInterface.display("Waiting Opponent's Turn");
+		
+		
 	}
+	
+	public State getCurrentGame(){
+		return _currentGameState;
+	}
+	
 
 	/* #####################
 	#  Private Operations  #
 	##################### */
 
-	private void displayGame(State state){
-		System.out.println(state.toString());
-	}
 
 
 	/* ############
 	#  Auxiliary  #
 	############ */
 
-	private int readPosition(){
-
-		System.out.print("Which position do you wish to play? : ");
-		
-		boolean validRead = false;
-		String input = "";
-		int position = 0;
-
-		while(!validRead){
-			try{
-				input = _reader.readLine();
-				position = Integer.parseInt(input);
-			}catch(NumberFormatException e){
-				System.out.print("Please type a valid number...");
-				continue;
-			}catch(IOException e){
-				System.out.print("Failed to read input, please try again...");
-				continue;
-			}
-			validRead = true;
+	
+	public void userInterfaceCallback(String input){
+		//Code That UI Runs Goes Here
+		try{
+			_state.handleInput(input);
+		}catch(NumberFormatException e){
+			_userInterface.displayLine("Please Type A Number Between 1 and 9");
+		}catch(TicTacToeException e){
+			_userInterface.displayLine(e.getMessage());
 		}
-		return position;
+		
 	}
+
+	public void hasPlayed() {
+		_hasPlayed = true;
+		_userInterface.close();
+		_state = new WaitingTurn(this);
+	}
+
 }

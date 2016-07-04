@@ -9,13 +9,16 @@ public class ArtificialIntelligence extends Player{
 		super(piece);
 	}
 
+	@Override
+	public void play(State state) {
+		// TODO Auto-generated method stub
+		
+	}
+
 	/* ###################
 	#  Public Interface  #
 	################### */
 	
-	public Action getNextAction(State state){
-		return null;
-	}
 
 	/* #####################
 	#  Private Operations  #

@@ -19,7 +19,7 @@ public abstract class Player {
 		return _piece;
 	}
 
-	public abstract Action getNextAction(State state);
+	public abstract void play(State state);
 	
 	/* #####################
 	#  Private Operations  #

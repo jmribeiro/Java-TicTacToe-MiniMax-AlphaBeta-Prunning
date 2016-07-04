@@ -43,6 +43,7 @@ public class State {
 		_currentPlayer = nextPlayer();
 		_board.play(player, action);
 	}
+	
 	public String toString(){
 		return _board.toString()+"\n"+_currentPlayer+"'s Turn!\n";
 	}

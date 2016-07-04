@@ -16,8 +16,7 @@ public class TicTacToe{
 		while(!game.gameOver()){
 			//Le accao jogador 1
 			
-			Action playerOAction = playerO.getNextAction(game);
-			game.play(playerO, playerOAction);
+			playerO.play(game);
 
 			//Verifica Game Over
 			if(game.gameOver()){
@@ -26,8 +25,7 @@ public class TicTacToe{
 			}
 
 			//Jogador 2
-			Action playerXAction = playerX.getNextAction(game);
-			game.play(playerX, playerXAction);
+			playerX.play(game);
 
 			//Verifica Game Over
 			if(game.gameOver()){
