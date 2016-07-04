@@ -1,0 +1,3 @@
+Bugs:
+
+Não deteta vencedor

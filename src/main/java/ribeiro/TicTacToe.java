@@ -1,30 +1,46 @@
 package ribeiro;
 
+
 import ribeiro.exception.*;
 import ribeiro.userinterface.*;
 
 public class TicTacToe{
-
+	
+	private static TicTacToe TIC_TAC_TOE;
+	
+	public static TicTacToe getInstance(){
+		if(TIC_TAC_TOE == null){
+			return new TicTacToe();
+		}
+		return TIC_TAC_TOE;
+	}
+	
 	Player _playerO, _playerX;
 	State game;
+	
+	UserInterfaceType _uiType;
 	UserInterface _userInterface;
 	
 	public TicTacToe() {
-		reset(UserInterfaceType.GUI);
+		_uiType = UserInterfaceType.GUI;
+		reset();
 	}
 
 	public void play() throws TicTacToeException{
+		
 		while(!game.gameOver()){
-			//Le accao jogador 1
-			
-			_playerO.play(game);
 
+			/* Jogador O */
+			_playerO.play(game);
+			
 			//Verifica Game Over
 			if(game.gameOver()){
 				terminate();
 				break;
 			}
-
+			
+			_userInterface.nextPlayer();
+			
 			//Jogador 2
 			_playerX.play(game);
 
@@ -33,33 +49,50 @@ public class TicTacToe{
 				terminate();
 				break;
 			}
+			
+			_userInterface.nextPlayer();
+			
 		}
 	}
 
-	private void terminate() throws GameIsNotOverException{
+	private void terminate() throws TicTacToeException{
 		
 		boolean draw = game.isDraw();
-
+		
+		_userInterface.display(game.toString());
+		
 		if(draw){
-			System.out.println("It's A Draw!");
+			_userInterface.display("It's A Draw!");
 		}else{
 			char winner = game.getWinner();
-			System.out.println("Player "+winner+" Is Victorious!");
+			_userInterface.display("Player "+winner+" Is Victorious!");
+		}
+		
+		_userInterface.display("\nPlay Again? (Y/N)");
+		
+		if(_playerO instanceof Human){
+			((Human)_playerO).terminate();
+		}
+		
+		if(_playerX instanceof Human){
+			((Human)_playerO).terminate();
 		}
 
 	}
+	
 
-	public void reset(UserInterfaceType type){
+	public void reset(){
 		
 		Board board = new Board();
 		char firstPlayer = 'O';
 
 		game = new State(board, firstPlayer);
+		
 		try{
 			_playerO = new Human('O');
 			_playerX = new Human('X');
 			
-			loadUserInterface(type);
+			loadUserInterface(_uiType);
 			
 		}catch(InvalidPieceException e){
 			//Make Sure It Doesnt Happen...
@@ -71,18 +104,17 @@ public class TicTacToe{
 			case GRAPHICAL:
 			case GRAPHICALUSERINTERFACE:
 			case GUI:
-				_userInterface = new GraphicalUserInterface((Human)_playerO, (Human)_playerX);
+				_userInterface = new GraphicalUserInterface(_playerO, _playerX);
 				break;
 			case TEXT:
 			case TEXTUSERINTERFACE:
 			case TUI:
-				_userInterface = new TextUserInterface((Human)_playerO, (Human)_playerX);
+				_userInterface = new TextUserInterface(_playerO, _playerX);
 				break;
 		default:
-			_userInterface = new GraphicalUserInterface((Human)_playerO, (Human)_playerX);
+			_userInterface = new GraphicalUserInterface(_playerO, _playerX);
 			break;
 			
 		}
-		
 	}
 }

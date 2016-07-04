@@ -13,6 +13,7 @@ import javax.swing.WindowConstants;
 import javax.swing.text.DefaultCaret;
 
 import ribeiro.Human;
+import ribeiro.Player;
 
 public class GraphicalUserInterface extends UserInterface implements ActionListener {
 
@@ -20,7 +21,7 @@ public class GraphicalUserInterface extends UserInterface implements ActionListe
 	private JTextArea _gameDisplay;
 	private JTextField _inputArea;
 	
-	public GraphicalUserInterface(Human playerO, Human playerX) {
+	public GraphicalUserInterface(Player playerO, Player playerX) {
 		super(playerO, playerX);
 		initGraphics();
 	}
@@ -67,19 +68,22 @@ public class GraphicalUserInterface extends UserInterface implements ActionListe
 	public void actionPerformed(ActionEvent event) {
 		//Code Ran When User Presses Enter
 		_inputArea.setText("");
-		getCurrentHuman().userInterfaceCallback(event.getActionCommand());
+		getCurrentPlayer().userInterfaceCallback(event.getActionCommand());
 	}
 
 	@Override
 	public void open() {
-		// TODO Auto-generated method stub
-		
+		_inputArea.setEditable(true);
 	}
 
 	@Override
 	public void close() {
-		// TODO Auto-generated method stub
-		
+		_inputArea.setEditable(false);
+	}
+
+	@Override
+	public void flush() {
+		_gameDisplay.setText("");
 	}
 
 }

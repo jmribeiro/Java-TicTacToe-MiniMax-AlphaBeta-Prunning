@@ -1,6 +1,7 @@
 package ribeiro;
 
 import ribeiro.exception.*;
+import ribeiro.state.GameOver;
 import ribeiro.state.HumanState;
 import ribeiro.state.Playing;
 import ribeiro.state.WaitingTurn;
@@ -9,8 +10,6 @@ import ribeiro.userinterface.UserInterface;
 
 public class Human extends Player{
 	
-	
-	private UserInterface _userInterface;
 	private HumanState _state;
 	
 	private State _currentGameState;
@@ -20,10 +19,6 @@ public class Human extends Player{
 	public Human(char piece) throws InvalidPieceException{
 		super(piece);
 	}
-
-	public void setUserInterface(UserInterface userInterface) {
-		_userInterface = userInterface;
-	}
 	
 	/* ###################
 	#  Public Interface  #
@@ -32,10 +27,11 @@ public class Human extends Player{
 	@Override
 	public void play(State state) {
 		
-		_currentGameState = state;
-		_state = new Playing(this);
-		
 		_userInterface.open();
+		
+		_currentGameState = state;
+		
+		_state = new Playing(this);
 		
 		_userInterface.display(state.toString());
 		_userInterface.displayLine("Which Position Do You Wish To Play?");
@@ -45,8 +41,6 @@ public class Human extends Player{
 		while(!_hasPlayed){
 			
 		}
-		
-		_userInterface.nextPlayer();
 		
 	}
 	
@@ -69,7 +63,6 @@ public class Human extends Player{
 	public void userInterfaceCallback(String input){
 		//Code That UI Runs Goes Here
 		try{
-			
 			_state.handleInput(input);
 		}catch(NumberFormatException e){
 			_userInterface.displayLine("Please Type A Number Between 1 and 9");
@@ -87,6 +80,9 @@ public class Human extends Player{
 		_state = new WaitingTurn(this);
 	}
 
-
+	public void terminate() {
+		_userInterface.open();
+		_state = new GameOver(this);
+	}
 
 }

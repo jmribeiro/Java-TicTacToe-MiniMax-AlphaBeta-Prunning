@@ -1,13 +1,13 @@
 package ribeiro.userinterface;
 
-import ribeiro.Human;
+import ribeiro.Player;
 
 public abstract class UserInterface {
 	
-	private Human _playerO, _playerX;
-	private String _currentHuman;
+	private Player _playerO, _playerX;
+	private char _currentHuman;
 	
-	public UserInterface(Human playerO, Human playerX){
+	public UserInterface(Player playerO, Player playerX){
 		
 		_playerO = playerO;
 		_playerX = playerX;
@@ -15,19 +15,19 @@ public abstract class UserInterface {
 		_playerO.setUserInterface(this);
 		_playerX.setUserInterface(this);
 		
-		_currentHuman = "playerO";
+		_currentHuman = 'O';
 	}
 	
 	public void nextPlayer(){
-		if(_currentHuman.equals("playerO")){
-			_currentHuman = "playerX";
+		if(_currentHuman == 'O'){
+			_currentHuman = 'X';
 		}else{
-			_currentHuman = "playerO";
+			_currentHuman = 'O';
 		}
 	}
 	
-	protected Human getCurrentHuman() {
-		if(_currentHuman.equals("playerO")){
+	protected Player getCurrentPlayer() {
+		if(_currentHuman == 'O'){
 			return _playerO;
 		}else{
 			return _playerX;
@@ -41,5 +41,6 @@ public abstract class UserInterface {
 	
 	public abstract void display(String text);
 	public abstract void displayLine(String text);
+	public abstract void flush();
 	
 }

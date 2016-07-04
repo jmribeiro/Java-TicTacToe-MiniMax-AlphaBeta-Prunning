@@ -5,12 +5,13 @@ import java.io.IOException;
 import java.io.InputStreamReader;
 
 import ribeiro.Human;
+import ribeiro.Player;
 
 public class TextUserInterface extends UserInterface implements Runnable {
 	
 	private BufferedReader _reader = new BufferedReader(new InputStreamReader(System.in));
 	
-	public TextUserInterface(Human playerO, Human playerX) {
+	public TextUserInterface(Player playerO, Player playerX) {
 		super(playerO, playerX);
 	}
 	
@@ -24,7 +25,7 @@ public class TextUserInterface extends UserInterface implements Runnable {
 	public void run() {
 		while(_open){
 			try {
-				getCurrentHuman().userInterfaceCallback(_reader.readLine());
+				getCurrentPlayer().userInterfaceCallback(_reader.readLine());
 			} catch (IOException e) {
 				displayLine(e.getMessage());
 			}
@@ -48,7 +49,19 @@ public class TextUserInterface extends UserInterface implements Runnable {
 		System.out.println(text);
 		
 	}
-
-
+	
+	@Override
+	public void flush(){
+		final String os = System.getProperty("os.name");
+		try {
+			if (os.contains("Windows")){
+				Runtime.getRuntime().exec("cls");
+			}else{
+				Runtime.getRuntime().exec("clear");
+			}
+		} catch (IOException e) {
+			display("Failed To Flush...");
+		}
+	}
 
 }
