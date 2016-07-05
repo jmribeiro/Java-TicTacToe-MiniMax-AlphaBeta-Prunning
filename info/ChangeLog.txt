@@ -1,0 +1,21 @@
+Version 1:
+ - GUI Done
+ - BUGS:
+	- Não detecta vencedor
+
+Version 2:
+ - V1 BugFix
+ - Random AI Done
+ - BUGS:
+	- Diz qual a vez de jogar mesmo depois do jogo terminado
+
+Version 3:
+ - V2 BugFix
+ - BUGS:
+	- Play Again não fuciona
+
+Version 3:
+ - Joga contra Dumb AI por default
+ - Não dá a utilizador escolha de modo de jogo
+ - V3 BugFix
+ 

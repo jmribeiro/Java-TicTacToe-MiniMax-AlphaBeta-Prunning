@@ -1,18 +1,24 @@
 package ribeiro;
 
-import ribeiro.exception.*;
-import ribeiro.userinterface.UserInterfaceType;
+import ribeiro.tictactoe.TicTacToe;
+import ribeiro.tictactoe.exception.*;
 
-import java.io.*;
 
 public class Main {
     public static void main( String[] args ) throws TicTacToeException{
         
-        TicTacToe ttt = new TicTacToe();
-        ttt.play();
-
-       
+    	if(args.length == 2){
+    		TicTacToe.bootUp(args[0], args[1]);
+    	}else{
+    		TicTacToe.bootUp(null, null);
+    	}
+    	
+        TicTacToe.getInstance().reset();
+        TicTacToe.getInstance().play();
 
     }
-    
+
+//0: ai pvp -> default ai
+//1: tui gui -> default tui
+
 }
