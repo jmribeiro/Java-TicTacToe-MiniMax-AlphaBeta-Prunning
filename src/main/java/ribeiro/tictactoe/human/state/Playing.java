@@ -20,7 +20,7 @@ public class Playing extends HumanState {
 		
 		Action action = new Action(_human.getPiece(), play); 
 
-		currentGame.play(_human, action);
+		currentGame.play( action);
 
 		_human.hasPlayed();
 

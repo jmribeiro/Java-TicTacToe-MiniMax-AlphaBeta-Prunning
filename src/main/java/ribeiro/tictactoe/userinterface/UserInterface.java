@@ -1,17 +1,18 @@
 package ribeiro.tictactoe.userinterface;
 
 import ribeiro.tictactoe.Player;
+import ribeiro.tictactoe.human.Human;
 
 public abstract class UserInterface {
 	
 	private Player _playerO, _playerX;
-	private char _currentHuman;
+	private char _currentPlayer;
 	
 	public UserInterface(Player playerO, Player playerX){
 		
 		setPlayers(playerO, playerX);
 		
-		_currentHuman = 'O';
+		_currentPlayer = 'O';
 	}
 	
 	protected void setPlayers(Player playerO, Player playerX){
@@ -22,15 +23,15 @@ public abstract class UserInterface {
 	}
 	
 	public void nextPlayer(){
-		if(_currentHuman == 'O'){
-			_currentHuman = 'X';
+		if(_currentPlayer == 'O'){
+			_currentPlayer = 'X';
 		}else{
-			_currentHuman = 'O';
+			_currentPlayer = 'O';
 		}
 	}
 	
 	protected Player getCurrentPlayer() {
-		if(_currentHuman == 'O'){
+		if(_currentPlayer == 'O'){
 			return _playerO;
 		}else{
 			return _playerX;
@@ -49,6 +50,11 @@ public abstract class UserInterface {
 	public void reset(Player playerO, Player playerX) {
 		flush();
 		setPlayers(playerO, playerX);
+	}
+
+	public void setCurrentPlayer(Player player) {
+		_currentPlayer = player.getPiece();
+		
 	}
 	
 }

@@ -104,8 +104,10 @@ public class TicTacToe{
 		boolean playAgain = false;
 		
 		if(_playerO instanceof Human){
+			_userInterface.setCurrentPlayer(_playerO);
 			playAgain = ((Human)_playerO).replayAnswer();
 		}else if(_playerX instanceof Human){
+			_userInterface.setCurrentPlayer(_playerX);
 			playAgain = ((Human)_playerO).replayAnswer();
 		}
 		

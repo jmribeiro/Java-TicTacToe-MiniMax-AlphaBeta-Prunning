@@ -11,14 +11,16 @@ public class Board {
 		initMatrix();
 	}
 
+	public Board(Board copy){
+		initMatrix(copy._matrix);
+	}
+
 	/* ###################
 	#  Public Interface  #
 	################### */
 
-	public void play(Player player, Action action) throws WrongPlayerTurnException, GameIsOverException, InvalidPositionException, InvalidCoordinatesException, InvalidPieceException, PositionOccupiedException{
-		if(player.getPiece()!=action.getPiece()){
-			throw new WrongPlayerTurnException(player.getPiece());
-		}else if(isFinal()){
+	public void play(Action action) throws GameIsOverException, InvalidPositionException, InvalidCoordinatesException, InvalidPieceException, PositionOccupiedException{
+		if(isFinal()){
 			throw new GameIsOverException();
 		}else{
 			fillPosition(action.getPosition(), action.getPiece());
@@ -165,11 +167,24 @@ public class Board {
 	############ */
 	
 	private void initMatrix(){
+
 		_matrix = new char[3][3];
+
 		char position = '1';
 		for(int line = 0; line < 3; line++){
 			for(int collumn = 0; collumn < 3; collumn++){
 				_matrix[line][collumn] = position++;
+			}
+		}
+	}
+
+	private void initMatrix(char[][] copy){
+
+		_matrix = new char[3][3];
+
+		for(int line = 0; line < 3; line++){
+			for(int collumn = 0; collumn < 3; collumn++){
+				_matrix[line][collumn] = copy[line][collumn];
 			}
 		}
 	}

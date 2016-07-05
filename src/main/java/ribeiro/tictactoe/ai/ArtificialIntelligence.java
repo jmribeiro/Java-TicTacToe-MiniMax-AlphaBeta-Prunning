@@ -4,6 +4,8 @@ package ribeiro.tictactoe.ai;
 import ribeiro.tictactoe.Action;
 import ribeiro.tictactoe.Player;
 import ribeiro.tictactoe.State;
+import ribeiro.tictactoe.ai.strategy.DecisionStrategy;
+import ribeiro.tictactoe.ai.strategy.Minimax;
 import ribeiro.tictactoe.exception.*;
 import ribeiro.tictactoe.userinterface.UserInterface;
 
@@ -12,9 +14,16 @@ import java.util.*;
 public class ArtificialIntelligence extends Player{
 	
 	private UserInterface _userInterface;
+	private DecisionStrategy _strategy;
 
 	public ArtificialIntelligence(char piece) throws InvalidPieceException{
 		super(piece);
+		_strategy = new Minimax();
+	}
+
+	public ArtificialIntelligence(char piece, DecisionStrategy strategy) throws InvalidPieceException{
+		super(piece);
+		_strategy = strategy;
 	}
 
 	/* ###################
@@ -24,9 +33,18 @@ public class ArtificialIntelligence extends Player{
 	@Override
 	public void play(State state) {
 		
-		_userInterface.displayLine("Thinking...");
+		_userInterface.displayLine("\nThinking...");
 
-		decidePlay(state);
+		try {
+			
+			Action bestAction = _strategy.decidePlay(state);
+			state.play(bestAction);
+			
+		} catch (Exception e) {
+			_userInterface.displayLine("That Was Too Much For Me!");
+			_userInterface.displayLine(e.getMessage());
+			e.printStackTrace();
+		}
 
 	}
 
@@ -47,7 +65,7 @@ public class ArtificialIntelligence extends Player{
 		Action chosen = possibleActions.get(new Random().nextInt(totalPossibleActions));
 
 		try {
-			state.play(this, chosen);
+			state.play(chosen);
 		} catch (TicTacToeException e) {
 			_userInterface.displayLine("Did I Do Something Wrong??");
 		}

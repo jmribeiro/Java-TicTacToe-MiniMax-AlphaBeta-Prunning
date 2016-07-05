@@ -13,6 +13,7 @@ public class Utilities{
 	}
 
 	public static boolean validPiece(char piece){
+		
 		return piece=='X' || piece=='O';
 	}
 
