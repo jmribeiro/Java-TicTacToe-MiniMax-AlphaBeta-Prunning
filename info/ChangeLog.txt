@@ -14,8 +14,15 @@ Version 3:
  - BUGS:
 	- Play Again não fuciona
 
-Version 3:
+Version 4:
  - Joga contra Dumb AI por default
  - Não dá a utilizador escolha de modo de jogo
  - V3 BugFix
+
+Version 5:
+ - Minimax Strategy feito! =D
+ - Joga contra Minimax AI por default
+ - Não dá a utilizador escolha de modo de jogo
+ - BUGS:
+	- Não escolhe uma jogada que acabaria o jogo (1 > 0 em minimax)
  

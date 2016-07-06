@@ -2,6 +2,7 @@ package ribeiro.tictactoe.ai.strategy;
 
 import ribeiro.tictactoe.Action;
 import ribeiro.tictactoe.State;
+import ribeiro.tictactoe.auxiliary.DebugMonitor;
 
 public class Minimax implements DecisionStrategy{
 	
@@ -17,19 +18,28 @@ public class Minimax implements DecisionStrategy{
 		
 	    Action bestAction = null;
 	    int bestValue = (int) Double.NEGATIVE_INFINITY;
-
+	    DebugMonitor.getInstance().displayLine("------------");
 	    for(Action a : firstState.possibleActions()){
 	        
 	    	DEBUG_ACTIONS();
 	        
-	        int currentValue = Min_Value(firstState.result(a), firstState.getCurrentPlayer());
+	    	State result = firstState.result(a);
+	        int currentValue = Min_Value(result, firstState.getCurrentPlayer());
+
 	        
 	        if(currentValue > bestValue){
 	        	bestValue = currentValue;
 	            bestAction = a;
 	        }
 	    }
-
+	    
+	    DebugMonitor.getInstance().displayLine("A total of "+_consideredActions+" possible actions...");
+	    DebugMonitor.getInstance().displayLine("Best Move Is To Play "+bestAction.getPiece()+" On #"+bestAction.getPosition());;
+	    
+	    if(bestValue == 1){
+	    	DebugMonitor.getInstance().displayLine("Game Is Won!");
+	    }
+	    
 	    return bestAction;
 	}
 
@@ -79,7 +89,7 @@ public class Minimax implements DecisionStrategy{
 	
 	private void DEBUG_ACTIONS(){
     	_consideredActions++;
-    	System.out.println("OPTION #"+_consideredActions);
+    	DebugMonitor.getInstance().displayLine("Option #"+_consideredActions);
 
 	}
 
