@@ -25,6 +25,11 @@ public class DebugMonitor {
 		SwingUtilities.invokeLater(
 				new Runnable(){
 					public void run(){
+						
+						if(!_window.isVisible()){
+							_window.setVisible(true);
+						}
+						
 						_display.append(message);
 					}
 				}

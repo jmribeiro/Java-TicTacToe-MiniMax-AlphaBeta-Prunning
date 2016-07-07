@@ -29,4 +29,8 @@ Version 5:
 Version 6:
  - V5 não era bug
  - Debug Monitor
+
+Version 7:
+ - Alpha Beta Prunning Feito!
+ - Alguma refactorização (havia muito código duplicado)
  
