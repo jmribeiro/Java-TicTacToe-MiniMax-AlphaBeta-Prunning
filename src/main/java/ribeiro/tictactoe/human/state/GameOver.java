@@ -1,7 +1,6 @@
 package ribeiro.tictactoe.human.state;
 
 import ribeiro.tictactoe.human.Human;
-import ribeiro.tictactoe.TicTacToe;
 import ribeiro.tictactoe.exception.TicTacToeException;
 
 public class GameOver extends HumanState {

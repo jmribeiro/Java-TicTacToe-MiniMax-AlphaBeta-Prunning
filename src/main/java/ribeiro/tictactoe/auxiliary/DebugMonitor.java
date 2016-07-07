@@ -1,13 +1,10 @@
 package ribeiro.tictactoe.auxiliary;
 
-import java.awt.BorderLayout;
 
 import javax.swing.JFrame;
 import javax.swing.JScrollPane;
 import javax.swing.JTextArea;
-import javax.swing.JTextField;
 import javax.swing.SwingUtilities;
-import javax.swing.WindowConstants;
 import javax.swing.text.DefaultCaret;
 
 public class DebugMonitor {
@@ -43,9 +40,7 @@ public class DebugMonitor {
 	}
 	
 	private void initGraphics(){
-		_window = new JFrame("Tic AI's Brain");
-		
-		_window.setDefaultCloseOperation(kill());
+		_window = new JFrame("Tic's Brain");
 		
 		// JTextArea
 		_display = new JTextArea();
@@ -54,12 +49,9 @@ public class DebugMonitor {
 		caret.setUpdatePolicy(DefaultCaret.ALWAYS_UPDATE);
 		_window.getContentPane().add(new JScrollPane(_display));
 		
-		_window.setSize(200, 400);
+		_window.setSize(350, 400);
 		_window.setVisible(true);
-	}
 
-	private static int kill(){
-		DEBUG_MONITOR = null;
-		return 0;
+		displayLine("Hi! I'm Tic!\nRibeiro's A.I. Made For TicTacToe!");
 	}
 }

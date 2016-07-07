@@ -25,4 +25,8 @@ Version 5:
  - Não dá a utilizador escolha de modo de jogo
  - BUGS:
 	- Não escolhe uma jogada que acabaria o jogo (1 > 0 em minimax)
+
+Version 6:
+ - V5 não era bug
+ - Debug Monitor
  

@@ -100,7 +100,6 @@ public class TicTacToe{
 			_userInterface.display("Player "+winner+" Is Victorious!");
 		}
 		
-		
 		boolean playAgain = false;
 		
 		if(_playerO instanceof Human){

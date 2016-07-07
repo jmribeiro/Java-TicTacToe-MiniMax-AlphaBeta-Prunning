@@ -2,45 +2,11 @@ package ribeiro.tictactoe.ai.strategy;
 
 import ribeiro.tictactoe.Action;
 import ribeiro.tictactoe.State;
-import ribeiro.tictactoe.auxiliary.DebugMonitor;
 
-public class Minimax implements DecisionStrategy{
+public class Minimax extends AdversarialStrategy{
 	
-	private int _consideredActions = 0;
-
-	public Action decidePlay(State state) throws Exception{
-		return Minimax_Decision(state);
-	}
-
-	private Action Minimax_Decision(State firstState) throws Exception{
-		
-		_consideredActions = 0;
-		
-	    Action bestAction = null;
-	    int bestValue = (int) Double.NEGATIVE_INFINITY;
-	    DebugMonitor.getInstance().displayLine("------------");
-	    for(Action a : firstState.possibleActions()){
-	        
-	    	DEBUG_ACTIONS();
-	        
-	    	State result = firstState.result(a);
-	        int currentValue = Min_Value(result, firstState.getCurrentPlayer());
-
-	        
-	        if(currentValue > bestValue){
-	        	bestValue = currentValue;
-	            bestAction = a;
-	        }
-	    }
-	    
-	    DebugMonitor.getInstance().displayLine("A total of "+_consideredActions+" possible actions...");
-	    DebugMonitor.getInstance().displayLine("Best Move Is To Play "+bestAction.getPiece()+" On #"+bestAction.getPosition());;
-	    
-	    if(bestValue == 1){
-	    	DebugMonitor.getInstance().displayLine("Game Is Won!");
-	    }
-	    
-	    return bestAction;
+	protected int getFirstMinValue(State firstState, Action action) throws Exception{
+		return Min_Value(firstState.result(action), firstState.getCurrentPlayer());
 	}
 
 	private int Max_Value(State state, char maxPlayer) throws Exception{
@@ -51,14 +17,11 @@ public class Minimax implements DecisionStrategy{
 
 	    int maxValue = (int) Double.NEGATIVE_INFINITY;
 	    
-	    
 	    for(Action a : state.possibleActions()){
 	    	
 	    	int currentValue = Min_Value(state.result(a), maxPlayer);
 	    	
-	    	if(currentValue > maxValue){
-	    		maxValue = currentValue;
-	    	}
+	    	maxValue = Math.max(currentValue, maxValue);
 	    	
 	    }
 
@@ -78,19 +41,12 @@ public class Minimax implements DecisionStrategy{
 
 	    	int currentValue = Max_Value(state.result(a), maxPlayer);
 			
-	    	if(currentValue < minValue){
-	    		minValue = currentValue;
-	    	}
+	    	minValue = Math.min(currentValue, minValue);
 	    }
 	    
 	    return minValue;
 
 	}
-	
-	private void DEBUG_ACTIONS(){
-    	_consideredActions++;
-    	DebugMonitor.getInstance().displayLine("Option #"+_consideredActions);
 
-	}
 
 }

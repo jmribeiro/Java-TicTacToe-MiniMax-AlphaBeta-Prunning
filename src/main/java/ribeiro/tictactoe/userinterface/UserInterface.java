@@ -1,7 +1,6 @@
 package ribeiro.tictactoe.userinterface;
 
 import ribeiro.tictactoe.Player;
-import ribeiro.tictactoe.human.Human;
 
 public abstract class UserInterface {
 	
