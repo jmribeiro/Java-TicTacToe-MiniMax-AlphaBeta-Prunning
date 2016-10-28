@@ -33,4 +33,7 @@ Version 6:
 Version 7:
  - Alpha Beta Prunning Feito!
  - Alguma refactorização (havia muito código duplicado)
+
+Version 8:
+ - Algumas mensagens adicionadas ao Tic's Brain
  

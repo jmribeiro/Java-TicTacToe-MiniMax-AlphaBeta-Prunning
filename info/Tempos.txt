@@ -1,0 +1,9 @@
+Primeira jogada:
+
+Minimax:
+	145009556 nanoseconds
+
+Cortes Alfa-Beta:
+	 16397691 nanoseconds
+
+	8,8 vezes mais rápido!
